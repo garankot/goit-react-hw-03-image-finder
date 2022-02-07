@@ -7,7 +7,7 @@ const apiPix = async ({ searchQuery = '', currentPage = 1 }) => {
   const response = await axios.get(
     `?q=${searchQuery}&page=${currentPage}&key=${key}&image_type=photo&orientation=horizontal&per_page=${'12'}`
   );
-  return response.data.hits;
+  return console.log(response.data.hits);
 };
 
 export default apiPix;
