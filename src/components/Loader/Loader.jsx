@@ -1,8 +1,8 @@
 // import React from 'react';
-import { TailSpin } from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
 const Loader = () => (
   <div>
-    <TailSpin
+    <Oval
       type="Oval"
       color="#258899"
       height={80}
