@@ -28,7 +28,7 @@ class Modal extends Component {
   render() {
     const { url, description } = this.props;
     return createPortal(
-      <div role="button" tabIndex="0" onClick={this.handleBackdropClick}>
+      <div onClick={this.handleBackdropClick}>
         <div>
           <img src={url} alt={description} />
         </div>

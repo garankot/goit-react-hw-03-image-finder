@@ -5,6 +5,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
+import Container from '../Container/Container';
 
 class App extends Component {
   state = {
@@ -62,14 +63,14 @@ class App extends Component {
     const { images, isLoading, error, empty } = this.state;
     const loadMoreButton = images.length > 0 && !isLoading;
     return (
-      <>
+      <Container>
         <SearchBar onSubmit={this.onChangeQuery} />
         {error && <ErrorMessage message={error.message} />}
         {empty && <ErrorMessage />}
         {images.length > 0 && <ImageGallery images={images} />}
         {isLoading && <Loader />}
         {loadMoreButton && <Button onClick={this.fetchImages} />}
-      </>
+      </Container>
     );
   }
 }
