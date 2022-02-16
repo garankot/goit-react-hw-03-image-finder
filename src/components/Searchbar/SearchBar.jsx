@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import SearchForm from './SearchForm';
 import styles from './SearchBar.module.css';
 
-const Searchbar = ({ onSubmit }) => (
-  <header className={styles.Searchbar}>
+const SearchBar = ({ onSubmit }) => (
+  <header className={styles.SearchBar}>
     <SearchForm onSubmit={onSubmit} />
   </header>
 );
 
-Searchbar.propTypes = {
+SearchBar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default Searchbar;
+export default SearchBar;
