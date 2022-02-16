@@ -5,14 +5,6 @@ import Modal from '../Modal/Modal';
 import styles from './ImageGallery.module.css';
 
 class ImageGallery extends Component {
-  static propTypes = {
-    images: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-      }).isRequired
-    ).isRequired,
-  };
-
   state = {
     showModal: false,
     description: '',
@@ -69,5 +61,11 @@ class ImageGallery extends Component {
     );
   }
 }
-
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
+};
 export default ImageGallery;
