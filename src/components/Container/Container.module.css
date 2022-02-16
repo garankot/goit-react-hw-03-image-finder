@@ -1,8 +1,6 @@
-import styled from 'styled-components';
-
-export const Cont = styled.div`
+.Container {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 16px;
   padding-bottom: 24px;
-`;
+}

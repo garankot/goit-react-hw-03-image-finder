@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './ErrorMessage.module.css';
 
 const ErrorMessage = ({ message }) => (
-  <div>Whoops, something went wrong: {message}</div>
+  <div className={styles.ErrorMessage}>
+    Whoops, something went wrong: {message}
+  </div>
 );
 
 ErrorMessage.defaultProps = {

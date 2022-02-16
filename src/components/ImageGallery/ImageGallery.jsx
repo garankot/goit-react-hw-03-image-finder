@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from '../ImageGalleryItem';
 import Modal from '../Modal/Modal';
+import styles from './ImageGallery.module.css';
 
-export default class ImageGallery extends Component {
+class ImageGallery extends Component {
+  static propTypes = {
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      }).isRequired
+    ).isRequired,
+  };
+
   state = {
     showModal: false,
     description: '',
@@ -44,9 +53,9 @@ export default class ImageGallery extends Component {
             closeModal={this.closeModal}
           />
         )}
-        <ul>
+        <ul className={styles.ImageGallery}>
           {images.map(({ id, webformatURL, largeImageURL, tags }) => (
-            <li key={id}>
+            <li className={styles.ImageGalleryItem} key={id}>
               <ImageGalleryItem
                 webformatURL={webformatURL}
                 largeImageURL={largeImageURL}
@@ -61,10 +70,4 @@ export default class ImageGallery extends Component {
   }
 }
 
-ImageGallery.propTypes = {
-  images: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
-};
+export default ImageGallery;

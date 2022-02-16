@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styles from './SearchForm.module.css';
 
 class SearchForm extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     search: '',
   };
+
   handleChange = event => {
-    this.setState({ search: event.target.value });
+    this.setState({ search: event.currentTarget.value });
   };
 
   handleSubmit = event => {
@@ -15,17 +21,17 @@ class SearchForm extends Component {
     this.props.onSubmit(search);
     this.setState({ search: '' });
   };
-  f;
 
   render() {
     const { search } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <button type="submit">
-          <span>Search</span>
+      <form className={styles.SearchForm} onSubmit={this.handleSubmit}>
+        <button type="submit" className={styles.SearchFormButton}>
+          <span className={styles.SearchFormButtonLabel}>Search</span>
         </button>
 
         <input
+          className={styles.SearchFormInput}
           type="text"
           value={search}
           onChange={this.handleChange}
@@ -36,9 +42,5 @@ class SearchForm extends Component {
     );
   }
 }
-
-SearchForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default SearchForm;
