@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchBar from './SearchBar/SearchBar';
+import Searchbar from './Searchbar/Searchbar';
 import pixabayApi from '../api/pixabayApi';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
@@ -64,7 +64,7 @@ class App extends Component {
     const loadMoreButton = images.length > 0 && !isLoading;
     return (
       <Container>
-        <SearchBar onSubmit={this.onChangeQuery} />
+        <Searchbar onSubmit={this.onChangeQuery} />
         {error && <ErrorMessage message={error.message} />}
         {empty && <ErrorMessage />}
         {images.length > 0 && <ImageGallery images={images} />}
