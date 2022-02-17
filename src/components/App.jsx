@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Searchbar from './Searchbar/Searchbar';
 import pixabayApi from '../api/pixabayApi';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import Container from './Container/Container';
+import Searchbar from './Searchbar/Searchbar';
 
 class App extends Component {
   state = {
