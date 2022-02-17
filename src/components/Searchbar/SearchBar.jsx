@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SearchForm from './SearchForm';
-import styles from './SearchBar.module.css';
+import styles from './Searchbar.module.css';
 
 const SearchBar = ({ onSubmit }) => (
-  <header className={styles.SearchBar}>
+  <header className={styles.Searchbar}>
     <SearchForm onSubmit={onSubmit} />
   </header>
 );
