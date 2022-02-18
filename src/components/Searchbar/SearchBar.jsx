@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SearchForm from '../Searchbar/SearchForm';
+import SearchForm from './SearchForm';
 import styles from './Searchbar.module.css';
 
 const Searchbar = ({ onSubmit }) => (
