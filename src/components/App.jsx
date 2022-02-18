@@ -5,7 +5,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
-import Container from '../Container/Container';
+import Container from './Container/Container';
 
 class App extends Component {
   state = {
@@ -17,7 +17,7 @@ class App extends Component {
     empty: false,
   };
 
-  componentDidUpdate(_, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { searchQuery, isLoading } = this.state;
     if (prevState.searchQuery !== searchQuery) {
       this.fetchImages();
@@ -61,7 +61,7 @@ class App extends Component {
 
   render() {
     const { images, isLoading, error, empty } = this.state;
-    const loadMoreButton = images.length > 0 && !isLoading;
+    const shouldRenderLoadMoreButton = images.length > 0 && !isLoading;
     return (
       <Container>
         <SearchBar onSubmit={this.onChangeQuery} />
@@ -69,7 +69,7 @@ class App extends Component {
         {empty && <ErrorMessage />}
         {images.length > 0 && <ImageGallery images={images} />}
         {isLoading && <Loader />}
-        {loadMoreButton && <Button onClick={this.fetchImages} />}
+        {shouldRenderLoadMoreButton && <Button onClick={this.fetchImages} />}
       </Container>
     );
   }

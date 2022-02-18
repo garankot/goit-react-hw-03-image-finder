@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SearchForm from '../Searchbar/SearchForm';
-import { SearchBarWrap } from './SearchBar.styled';
+import styles from './Searchbar.module.css';
 
 const SearchBar = ({ onSubmit }) => (
-  <SearchBarWrap>
+  <header className={styles.Searchbar}>
     <SearchForm onSubmit={onSubmit} />
-  </SearchBarWrap>
+  </header>
 );
 
 SearchBar.propTypes = {

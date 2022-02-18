@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Modal from '../Modal/Modal';
+import styles from './ImageGallery.module.css';
 
-export default class ImageGallery extends Component {
+class ImageGallery extends Component {
   state = {
     showModal: false,
     description: '',
@@ -44,9 +45,9 @@ export default class ImageGallery extends Component {
             closeModal={this.closeModal}
           />
         )}
-        <ul>
+        <ul className={styles.ImageGallery}>
           {images.map(({ id, webformatURL, largeImageURL, tags }) => (
-            <li key={id}>
+            <li key={id} className={styles.ImageGalleryItem}>
               <ImageGalleryItem
                 webformatURL={webformatURL}
                 largeImageURL={largeImageURL}
@@ -60,6 +61,8 @@ export default class ImageGallery extends Component {
     );
   }
 }
+
+export default ImageGallery;
 
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(

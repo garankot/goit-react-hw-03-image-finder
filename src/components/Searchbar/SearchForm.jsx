@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styles from './SearchForm.module.css';
 
 class SearchForm extends Component {
   state = {
@@ -20,12 +21,12 @@ class SearchForm extends Component {
   render() {
     const { search } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <button type="submit">
-          <span>Search</span>
+      <form className={styles.SearchForm} onSubmit={this.handleSubmit}>
+        <button type="submit" className={styles.SearchFormButton}>
+          <span className={styles.SearchFormButtonLabel}>Search</span>
         </button>
 
-        <input
+        <input className={styles.SearchFormInput}
           type="text"
           value={search}
           onChange={this.handleChange}
