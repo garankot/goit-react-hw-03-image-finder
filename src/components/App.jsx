@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Searchbar from './Searchbar/SearchBar';
 import pixabayApi from '../api/pixabayApi';
 import ImageGallery from './ImageGallery/ImageGallery';

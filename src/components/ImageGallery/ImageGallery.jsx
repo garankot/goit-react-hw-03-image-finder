@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import ImageGalleryItem from '../ImageGalleryItem';
 import Modal from '../Modal/Modal';
 import styles from './ImageGallery.module.css';
 
@@ -61,9 +61,6 @@ class ImageGallery extends Component {
     );
   }
 }
-
-export default ImageGallery;
-
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
@@ -71,3 +68,4 @@ ImageGallery.propTypes = {
     }).isRequired
   ).isRequired,
 };
+export default ImageGallery;
