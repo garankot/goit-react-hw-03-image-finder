@@ -7,6 +7,7 @@ import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import Container from './Container/Container';
+import Modal from './Modal/Modal';
 
 class App extends Component {
   state = {
@@ -16,6 +17,7 @@ class App extends Component {
     isLoading: false,
     error: null,
     empty: false,
+    showModal: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -60,14 +62,64 @@ class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
+  // showModal = event => {
+  //   event.preventDefault();
+  //   const { href, dataset } = event.currentTarget;
+  //   this.setState({
+  //     description: dataset.attr,
+  //     largeImage: href,
+  //   });
+  //   this.toggleModal();
+  // };
+  showModal = imgUrl => {
+    // console.log(imgUrl);
+    this.setState({ imgUrl }, () => {
+      this.toggleModal();
+    });
+  };
+  handleronClickImage = (activeImge, tags) => {
+    this.setState({ activeImge, tags });
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
+  closeModal = () => {
+    this.setState({
+      description: '',
+      largeImage: '',
+    });
+    this.toggleModal();
+  };
+
   render() {
-    const { images, isLoading, error, empty } = this.state;
+    const {
+      showModal,
+      largeImage,
+      description,
+      images,
+      isLoading,
+      error,
+      empty,
+      // imgUrl,
+    } = this.state;
     const shouldRenderLoadMoreButton = images.length > 0 && !isLoading;
     return (
       <Container>
         <Searchbar onSubmit={this.onChangeQuery} />
         {error && <ErrorMessage message={error.message} />}
         {empty && <ErrorMessage />}
+        {showModal && (
+          <Modal
+            url={largeImage}
+            description={description}
+            closeModal={this.toggleModal}
+          >
+            {/* <img src={imgUrl} alt="" /> */}
+          </Modal>
+        )}
         {images.length > 0 && <ImageGallery images={images} />}
         {isLoading && <Loader />}
         {shouldRenderLoadMoreButton && <Button onClick={this.fetchImages} />}

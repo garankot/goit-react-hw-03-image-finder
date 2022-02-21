@@ -11,28 +11,6 @@ class ImageGallery extends Component {
     largeImage: '',
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
-  };
-
-  showModal = event => {
-    event.preventDefault();
-    const { href, dataset } = event.currentTarget;
-    this.setState({
-      description: dataset.attr,
-      largeImage: href,
-    });
-    this.toggleModal();
-  };
-
-  closeModal = () => {
-    this.setState({
-      description: '',
-      largeImage: '',
-    });
-    this.toggleModal();
-  };
-
   render() {
     const { images } = this.props;
     const { showModal, largeImage, description } = this.state;
