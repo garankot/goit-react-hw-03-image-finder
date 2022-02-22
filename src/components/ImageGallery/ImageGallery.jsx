@@ -1,44 +1,25 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImageGalleryItem from '../ImageGalleryItem';
-import Modal from '../Modal/Modal';
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+
 import styles from './ImageGallery.module.css';
 
-class ImageGallery extends Component {
-  state = {
-    showModal: false,
-    description: '',
-    largeImage: '',
-  };
-
-  render() {
-    const { images } = this.props;
-    const { showModal, largeImage, description } = this.state;
-    return (
-      <>
-        {showModal && (
-          <Modal
-            url={largeImage}
-            description={description}
-            closeModal={this.closeModal}
+const ImageGallery = ({ images, showModal }) => {
+  return (
+    <ul className={styles.ImageGallery}>
+      {images.map(({ id, webformatURL, largeImageURL, tags }) => (
+        <li className={styles.ImageGalleryItem} key={id}>
+          <ImageGalleryItem
+            webformatURL={webformatURL}
+            largeImageURL={largeImageURL}
+            description={tags}
+            onClick={showModal}
           />
-        )}
-        <ul className={styles.ImageGallery}>
-          {images.map(({ id, webformatURL, largeImageURL, tags }) => (
-            <li key={id} className={styles.ImageGalleryItem}>
-              <ImageGalleryItem
-                webformatURL={webformatURL}
-                largeImageURL={largeImageURL}
-                description={tags}
-                onClick={this.showModal}
-              />
-            </li>
-          ))}
-        </ul>
-      </>
-    );
-  }
-}
+        </li>
+      ))}
+    </ul>
+  );
+};
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({

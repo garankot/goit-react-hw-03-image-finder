@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-
-import Searchbar from './Searchbar/SearchBar';
 import pixabayApi from '../api/pixabayApi';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import Container from './Container/Container';
-import Modal from './Modal/Modal';
+import Searchbar from './Searchbar/SearchBar';
 
 class App extends Component {
   state = {
@@ -18,9 +16,11 @@ class App extends Component {
     error: null,
     empty: false,
     showModal: false,
+    description: '',
+    largeImage: '',
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     const { searchQuery, isLoading } = this.state;
     if (prevState.searchQuery !== searchQuery) {
       this.fetchImages();
@@ -28,6 +28,9 @@ class App extends Component {
     if (isLoading) this.scrollImages();
   }
 
+  handlerClickLoadMore = () => {
+    this.setState(({ currentPage }) => ({ currentPage: currentPage + 1 }));
+  };
   onChangeQuery = query => {
     this.setState({
       searchQuery: query,
@@ -66,24 +69,14 @@ class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
-  // showModal = event => {
-  //   event.preventDefault();
-  //   const { href, dataset } = event.currentTarget;
-  //   this.setState({
-  //     description: dataset.attr,
-  //     largeImage: href,
-  //   });
-  //   this.toggleModal();
-  // };
-  showModal = imgUrl => {
-    // console.log(imgUrl);
-    this.setState({ imgUrl }, () => {
-      this.toggleModal();
+  showModal = event => {
+    event.preventDefault();
+    const { href, dataset } = event.currentTarget;
+    this.setState({
+      description: dataset.attr,
+      largeImage: href,
     });
-  };
-  handleronClickImage = (activeImge, tags) => {
-    this.setState({ activeImge, tags });
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
+    this.toggleModal();
   };
 
   closeModal = () => {
@@ -95,34 +88,19 @@ class App extends Component {
   };
 
   render() {
-    const {
-      showModal,
-      largeImage,
-      description,
-      images,
-      isLoading,
-      error,
-      empty,
-      // imgUrl,
-    } = this.state;
-    const shouldRenderLoadMoreButton = images.length > 0 && !isLoading;
+    const { images, isLoading, error, empty } = this.state;
+    const loadMoreButton = images.length === [];
     return (
       <Container>
         <Searchbar onSubmit={this.onChangeQuery} />
         {error && <ErrorMessage message={error.message} />}
         {empty && <ErrorMessage />}
-        {showModal && (
-          <Modal
-            url={largeImage}
-            description={description}
-            closeModal={this.toggleModal}
-          >
-            {/* <img src={imgUrl} alt="" /> */}
-          </Modal>
+        {images.length > 0 && (
+          <ImageGallery images={images} onClick={this.showModal} />
         )}
-        {images.length > 0 && <ImageGallery images={images} />}
         {isLoading && <Loader />}
-        {shouldRenderLoadMoreButton && <Button onClick={this.fetchImages} />}
+
+        {loadMoreButton && <Button onClick={this.fetchImages} />}
       </Container>
     );
   }
