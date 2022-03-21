@@ -65,10 +65,6 @@ class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
-  };
-
   showModal = event => {
     event.preventDefault();
     const { href, dataset } = event.currentTarget;
@@ -85,6 +81,10 @@ class App extends Component {
       largeImage: '',
     });
     this.toggleModal();
+  };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
   render() {
