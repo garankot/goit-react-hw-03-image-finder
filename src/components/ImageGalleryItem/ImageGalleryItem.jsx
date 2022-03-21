@@ -8,11 +8,12 @@ const ImageGalleryItem = ({
   largeImageURL,
   onClick,
 }) => (
-  <a href={largeImageURL} data-attr={description} onClick={onClick}>
+  <a href={largeImageURL} data-attr={description}>
     <img
       src={webformatURL}
       alt={description}
       className={styles.ImageGalleryItemImage}
+      onClick={onClick}
     />
   </a>
 );
