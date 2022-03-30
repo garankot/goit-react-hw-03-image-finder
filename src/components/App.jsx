@@ -5,7 +5,7 @@ import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import Container from './Container/Container';
-import Searchbar from './Searchbar/SearchBar';
+import Searchbar from './Searchbar/Searchbar';
 
 class App extends Component {
   state = {
@@ -15,9 +15,6 @@ class App extends Component {
     isLoading: false,
     error: null,
     empty: false,
-    showModal: false,
-    description: '',
-    largeImage: '',
   };
 
   componentDidUpdate(_, prevState) {
@@ -28,9 +25,6 @@ class App extends Component {
     if (isLoading) this.scrollImages();
   }
 
-  handlerClickLoadMore = () => {
-    this.setState(({ currentPage }) => ({ currentPage: currentPage + 1 }));
-  };
   onChangeQuery = query => {
     this.setState({
       searchQuery: query,
@@ -65,41 +59,17 @@ class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
-  showModal = event => {
-    event.preventDefault();
-    const { href, dataset } = event.currentTarget;
-    this.setState({
-      description: dataset.attr,
-      largeImage: href,
-    });
-    this.toggleModal();
-  };
-
-  closeModal = () => {
-    this.setState({
-      description: '',
-      largeImage: '',
-    });
-    this.toggleModal();
-  };
-
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
-  };
-
   render() {
     const { images, isLoading, error, empty } = this.state;
-    const loadMoreButton = images.length === [];
+    const loadMoreButton =
+      images.length > 0 && images.length % 12 === 0 && !isLoading;
     return (
       <Container>
         <Searchbar onSubmit={this.onChangeQuery} />
         {error && <ErrorMessage message={error.message} />}
         {empty && <ErrorMessage />}
-        {images.length > 0 && (
-          <ImageGallery images={images} onClick={this.showModal} />
-        )}
+        {images.length > 0 && <ImageGallery images={images} />}
         {isLoading && <Loader />}
-
         {loadMoreButton && <Button onClick={this.fetchImages} />}
       </Container>
     );

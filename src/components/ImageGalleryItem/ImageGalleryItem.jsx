@@ -8,12 +8,11 @@ const ImageGalleryItem = ({
   largeImageURL,
   onClick,
 }) => (
-  <a href={largeImageURL} data-attr={description}>
+  <a href={largeImageURL} data-attr={description} onClick={onClick}>
     <img
       src={webformatURL}
       alt={description}
       className={styles.ImageGalleryItemImage}
-      onClick={onClick}
     />
   </a>
 );
@@ -22,7 +21,7 @@ ImageGalleryItem.propTypes = {
   webformatURL: PropTypes.string.isRequired,
   largeImageURL: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ImageGalleryItem;
