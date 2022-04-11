@@ -6,6 +6,7 @@ import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import Container from './Container/Container';
 import Searchbar from './Searchbar/Searchbar';
+import Modal from './Modal/Modal';
 
 class App extends Component {
   state = {
@@ -15,6 +16,9 @@ class App extends Component {
     isLoading: false,
     error: null,
     empty: false,
+    showModal: false,
+    description: '',
+    largeImage: '',
   };
 
   componentDidUpdate(_, prevState) {
@@ -59,8 +63,38 @@ class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
+  showModal = event => {
+    event.preventDefault();
+    const { href, alt } = event.currentTarget;
+    this.setState({
+      description: alt,
+      largeImage: href,
+    });
+    this.toggleModal();
+  };
+
+  closeModal = () => {
+    this.setState({
+      description: '',
+      largeImage: '',
+    });
+    this.toggleModal(Modal);
+  };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
   render() {
-    const { images, isLoading, error, empty } = this.state;
+    const {
+      images,
+      isLoading,
+      error,
+      empty,
+      showModal,
+      largeImage,
+      description,
+    } = this.state;
     const loadMoreButton =
       images.length > 0 && images.length % 12 === 0 && !isLoading;
     return (
@@ -70,6 +104,16 @@ class App extends Component {
         {empty && <ErrorMessage />}
         {images.length > 0 && <ImageGallery images={images} />}
         {isLoading && <Loader />}
+        {showModal && (
+          <Modal showModal={this.toggleModal}>
+            <img src={largeImage} alt={description} />
+          </Modal>
+          // <Modal
+          //   url={largeImage}
+          //   description={description}
+          //   onClose={this.closeModal}
+          // />
+        )}
         {loadMoreButton && <Button onClick={this.fetchImages} />}
       </Container>
     );
