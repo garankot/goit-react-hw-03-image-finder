@@ -37,7 +37,7 @@ const ImageGalleryItem = ({
       src={webformatURL}
       alt={tags}
       className={styles.ImageGalleryItemImage}
-      onClick={onClick}
+      // onClick={onClick}
     />
   </a>
 );
