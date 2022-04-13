@@ -5,7 +5,7 @@ import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import Container from './Container/Container';
-import Searchbar from './Searchbar/Searchbar';
+import SearchBar from './SearchBar/SearchBar';
 import Modal from './Modal/Modal';
 
 class App extends Component {
@@ -63,16 +63,6 @@ class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
-  // showModal = event => {
-  //   event.preventDefault();
-  //   const { href, alt } = event.currentTarget;
-  //   this.setState({
-  //     description: alt,
-  //     fullSize: href,
-  //   });
-  //   this.toggleModal();
-  // };
-
   closeModal = () => {
     this.setState({
       description: '',
@@ -104,22 +94,13 @@ class App extends Component {
   };
 
   render() {
-    const {
-      images,
-      isLoading,
-      error,
-      empty,
-      showModal,
-      // largeImage,
-      // description,
-      fullSize,
-      alt,
-    } = this.state;
+    const { images, isLoading, error, empty, showModal, fullSize, alt } =
+      this.state;
     const loadMoreButton =
       images.length > 0 && images.length % 12 === 0 && !isLoading;
     return (
       <Container>
-        <Searchbar onSubmit={this.onChangeQuery} />
+        <SearchBar onSubmit={this.onChangeQuery} />
         {error && <ErrorMessage message={error.message} />}
         {empty && <ErrorMessage />}
         {images.length > 0 && (
