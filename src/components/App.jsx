@@ -18,7 +18,7 @@ class App extends Component {
     empty: false,
     showModal: false,
     description: '',
-    largeImage: '',
+    fullSize: '',
   };
 
   componentDidUpdate(_, prevState) {
@@ -63,26 +63,44 @@ class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
-  showModal = event => {
-    event.preventDefault();
-    const { href, alt } = event.currentTarget;
-    this.setState({
-      description: alt,
-      largeImage: href,
-    });
-    this.toggleModal();
-  };
+  // showModal = event => {
+  //   event.preventDefault();
+  //   const { href, alt } = event.currentTarget;
+  //   this.setState({
+  //     description: alt,
+  //     fullSize: href,
+  //   });
+  //   this.toggleModal();
+  // };
 
   closeModal = () => {
     this.setState({
       description: '',
-      largeImage: '',
+      fullSize: '',
     });
     this.toggleModal(Modal);
   };
 
   toggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
+  handleClick = event => {
+    const { showModal } = this.state;
+    if (showModal) {
+      this.setState({
+        showModal: !showModal,
+        alt: null,
+        fullSize: null,
+      });
+    } else {
+      if (event.target.nodeName !== 'IMG') return;
+      this.setState({
+        showModal: !showModal,
+        alt: event.target.alt,
+        fullSize: event.target.dataset.fullsize,
+      });
+    }
   };
 
   render() {
@@ -92,8 +110,10 @@ class App extends Component {
       error,
       empty,
       showModal,
-      largeImage,
-      description,
+      // largeImage,
+      // description,
+      fullSize,
+      alt,
     } = this.state;
     const loadMoreButton =
       images.length > 0 && images.length % 12 === 0 && !isLoading;
@@ -102,17 +122,18 @@ class App extends Component {
         <Searchbar onSubmit={this.onChangeQuery} />
         {error && <ErrorMessage message={error.message} />}
         {empty && <ErrorMessage />}
-        {images.length > 0 && <ImageGallery images={images} />}
+        {images.length > 0 && (
+          <ImageGallery images={images} onClick={this.handleClick} />
+        )}
         {isLoading && <Loader />}
+        {/* {showModal && (
+          <Modal onClose={this.handleClick} url={fullSize} alt={description} />
+        )} */}
         {showModal && (
-          <Modal showModal={this.toggleModal}>
-            <img src={largeImage} alt={description} />
-          </Modal>
-          // <Modal
-          //   url={largeImage}
-          //   description={description}
-          //   onClose={this.closeModal}
-          // />
+          // <Modal showModal={this.toggleModal}>
+          //   <img src={largeImage} alt={description} />
+          // </Modal>
+          <Modal onClose={this.closeModal} url={fullSize} name={alt} />
         )}
         {loadMoreButton && <Button onClick={this.fetchImages} />}
       </Container>

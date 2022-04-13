@@ -1,79 +1,30 @@
-// import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImageGalleryItem from '../ImageGalleryItem';
-// import Modal from '../Modal/Modal';
+import ImageGalleryItem from 'components/ImageGalleryItem';
 import styles from './ImageGallery.module.css';
 
-// class ImageGallery extends Component {
-// state = {
-//   showModal: false,
-//   description: '',
-//   largeImage: '',
-// };
-
-// toggleModal = () => {
-//   this.setState(({ showModal }) => ({ showModal: !showModal }));
-// };
-
-// showModal = event => {
-//   event.preventDefault();
-//   const { href, dataset } = event.currentTarget;
-//   this.setState({
-//     description: dataset.attr,
-//     largeImage: href,
-//   });
-//   this.toggleModal();
-// };
-
-// closeModal = () => {
-//   this.setState({
-//     description: '',
-//     largeImage: '',
-//   });
-//   this.toggleModal();
-// };
-
-// render() {
-// const { images } = this.props;
-// const { showModal, largeImage, description } = this.state;
-// const { showModal } = this.state;
-// return (
-// <>
-
-/* {showModal && (
-          <Modal
-            url={largeImage}
-            description={description}
-            closeModal={this.closeModal}
-          />
-        )} */
-
-const ImageGallery = ({ images, showModal, toggleModal }) => {
+const ImageGallery = ({ images, onClick }) => {
   return (
-    <ul className={styles.ImageGallery}>
-      {images.map(({ id, webformatURL, largeImageURL, tags }) => (
-        <li className={styles.ImageGalleryItem} key={id} onClick={showModal}>
-          <ImageGalleryItem
-            webformatURL={webformatURL}
-            largeImageURL={largeImageURL}
-            description={tags}
-            onClick={toggleModal}
-          />
-        </li>
+    <ul className={styles.ImageGallery} onClick={onClick}>
+      {images.map(image => (
+        <ImageGalleryItem
+          className={styles.ImageGalleryItem}
+          key={image.id}
+          webformatURL={image.webformatURL}
+          largeImageURL={image.largeImageURL}
+          user={image.user}
+        />
       ))}
     </ul>
   );
 };
 
-//       </>
-//     );
-//   }
-// }
 ImageGallery.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
+    })
+  ),
+  onClick: PropTypes.func.isRequired,
 };
+
 export default ImageGallery;
