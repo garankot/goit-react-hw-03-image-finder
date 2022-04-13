@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import pixabayApi from '../api/pixabayApi';
+import SearchBar from './Searchbar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import Container from './Container/Container';
-import SearchBar from './SearchBar/SearchBar';
 import Modal from './Modal/Modal';
 
 class App extends Component {
